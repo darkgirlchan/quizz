@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Gestión de Innovación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cuestionario de Gestión de Innovación</h1>
+            <p>Evalúa tus conocimientos sobre gestión de innovación con este cuestionario interactivo</p>
+        </header>
+
+        <div class="start-form">
+            <h2>Comienza el cuestionario</h2>
+            <form action="{{ url_for('start_quiz') }}" method="post">
+                <div class="form-group">
+                    <label for="nickname">Ingresa tu nickname:</label>
+                    <input type="text" id="nickname" name="nickname" required>
+                </div>
+                <button type="submit">Comenzar</button>
+            </form>
+        </div>
+
+        <div class="instructions">
+            <h3>Instrucciones:</h3>
+            <ul>
+                <li>Responde 5 preguntas sobre gestión de innovación</li>
+                <li>Cada respuesta tiene un valor porcentual diferente</li>
+                <li>Tu puntuación se guardará con tu nickname</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregunta {{ current }} - Cuestionario de Innovación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cuestionario de Gestión de Innovación</h1>
+            <div class="progress">
+                <div class="progress-bar" style="width: {{ (current / total) * 100 }}%"></div>
+            </div>
+            <p>Pregunta {{ current }} de {{ total }}</p>
+        </header>
+
+        <div class="question-container">
+            <h2>{{ question.question }}</h2>
+            <div class="options">
+                {% for option in question.options %}
+                <div class="option" data-value="{{ option.text }}">
+                    <input type="radio" name="answer" id="option-{{ loop.index }}" value="{{ option.text }}">
+                    <label for="option-{{ loop.index }}">{{ option.text }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button id="next-btn" class="btn-primary" disabled>Siguiente</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

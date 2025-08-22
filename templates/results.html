@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados - Cuestionario de Innovación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resultados del Cuestionario</h1>
+        </header>
+
+        <div class="results-container">
+            <h2>¡Felicidades {{ session.nickname }}!</h2>
+            <p>Has completado el cuestionario de gestión de innovación</p>
+
+            <div class="score-display">
+                <div class="score-circle">
+                    <span class="percentage">{{ "%.1f"|format(percentage) }}%</span>
+                </div>
+                <p>Puntuación: {{ "%.2f"|format(score) }} / {{ max_score }}</p>
+            </div>
+
+            {% if powers_used %}
+            <div class="powers-used">
+                <h3>Poderes utilizados:</h3>
+                <ul>
+                    {% for power in powers_used %}
+                    <li>{{ power }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="actions">
+                <a href="{{ url_for('index') }}" class="btn-primary">Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
