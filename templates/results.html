@@ -5,6 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados - Cuestionario de Innovación</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .category-scores {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .category-score {
+            margin-bottom: 15px;
+        }
+        .category-score-bar {
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .category-score-fill {
+            background-color: #3498db;
+            height: 20px;
+            text-align: right;
+            padding-right: 5px;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+        }
+        .playbook {
+            margin-top: 40px;
+            text-align: left;
+            border-top: 2px solid #ecf0f1;
+            padding-top: 20px;
+        }
+        .playbook h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .playbook h3 {
+            color: #3498db;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        .playbook ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .playbook li {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,19 +59,39 @@
         </header>
 
         <div class="results-container">
-            <h2>¡Felicidades {{ session.nickname }}!</h2>
-            <p>Has completado el cuestionario de gestión de innovación</p>
+            <h2>¡Felicidades, {{ session.nickname }}!</h2>
+            <p>Has completado el cuestionario de gestión de innovación. Aquí está tu desglose de resultados.</p>
 
-            <div class="score-display">
-                <div class="score-circle">
-                    <span class="percentage">{{ "%.1f"|format(percentage) }}%</span>
+            <div class="category-scores">
+                <div class="category-score">
+                    <strong>Costos:</strong> 
+                    <div class="category-score-bar">
+                        <div class="category-score-fill" style="width: {{ percentages.costs }}%;">{{ "%.1f"|format(percentages.costs) }}%</div>
+                    </div>
                 </div>
-                <p>Puntuación: {{ "%.2f"|format(score) }} / {{ max_score }}</p>
+                <div class="category-score">
+                    <strong>Satisfacción del Cliente:</strong>
+                    <div class="category-score-bar">
+                        <div class="category-score-fill" style="width: {{ percentages.customer_satisfaction }}%;">{{ "%.1f"|format(percentages.customer_satisfaction) }}%</div>
+                    </div>
+                </div>
+                <div class="category-score">
+                    <strong>Riesgos:</strong>
+                    <div class="category-score-bar">
+                        <div class="category-score-fill" style="width: {{ percentages.risks }}%;">{{ "%.1f"|format(percentages.risks) }}%</div>
+                    </div>
+                </div>
+                <div class="category-score">
+                    <strong>Sostenibilidad:</strong> 
+                    <div class="category-score-bar">
+                        <div class="category-score-fill" style="width: {{ percentages.sustainability }}%;">{{ "%.1f"|format(percentages.sustainability) }}%</div>
+                    </div>
+                </div>
             </div>
 
             {% if powers_used %}
             <div class="powers-used">
-                <h3>Poderes utilizados:</h3>
+                <h4>Poderes utilizados:</h4>
                 <ul>
                     {% for power in powers_used %}
                     <li>{{ power }}</li>
@@ -33,6 +99,39 @@
                 </ul>
             </div>
             {% endif %}
+
+            <div class="playbook">
+                <h2>📘 Tu Playbook de Innovación general</h2>
+                <p>Basado en tus resultados, tu principal área de mejora es la <strong>{{ playbook.area_mejora }}</strong>. Aquí tienes una guía práctica para fortalecer esta área:</p>
+
+                <h3>Procesos Sugeridos</h3>
+                <ul>
+                    {% for item in playbook.procesos %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Roles Clave</h3>
+                <ul>
+                    {% for item in playbook.roles %}
+                    <li>{{ item | safe }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Métricas de Éxito</h3>
+                <ul>
+                    {% for item in playbook.metricas %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Herramientas Recomendadas</h3>
+                <ul>
+                    {% for item in playbook.herramientas %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
             <div class="actions">
                 <a href="{{ url_for('index') }}" class="btn-primary">Volver al inicio</a>

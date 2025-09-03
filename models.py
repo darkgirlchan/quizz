@@ -19,8 +19,12 @@ class QuizResult(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    score = db.Column(db.Float, nullable=False)
-    max_score = db.Column(db.Float, nullable=False)
-    percentage = db.Column(db.Float, nullable=False)
+    
+    # Campos de puntuación por categoría
+    costs_score = db.Column(db.Float, nullable=False)
+    customer_satisfaction_score = db.Column(db.Float, nullable=False)
+    risks_score = db.Column(db.Float, nullable=False)
+    sustainability_score = db.Column(db.Float, nullable=False)
+    
     powers_used = db.Column(db.String(200))
     completed_at = db.Column(db.DateTime, default=datetime.utcnow)
