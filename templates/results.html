@@ -6,50 +6,24 @@
     <title>Resultados - Cuestionario de Innovación</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-        .category-scores {
-            margin-top: 30px;
-            text-align: left;
-        }
-        .category-score {
-            margin-bottom: 15px;
-        }
-        .category-score-bar {
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .category-score-fill {
-            background-color: #3498db;
-            height: 20px;
-            text-align: right;
-            padding-right: 5px;
-            line-height: 20px;
-            color: white;
-            font-size: 12px;
-        }
-        .playbook {
-            margin-top: 40px;
-            text-align: left;
-            border-top: 2px solid #ecf0f1;
-            padding-top: 20px;
-        }
-        .playbook h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .playbook h3 {
-            color: #3498db;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-top: 20px;
-        }
-        .playbook ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-        .playbook li {
-            margin-bottom: 10px;
-        }
+        /* (Tus estilos CSS van aquí... No es necesario cambiarlos) */
+        .category-scores { margin-top: 30px; text-align: left; }
+        .category-score { margin-bottom: 15px; }
+        .category-score-bar { background-color: #ecf0f1; border-radius: 5px; overflow: hidden; }
+        .category-score-fill { background-color: #3498db; height: 20px; text-align: right; padding-right: 5px; line-height: 20px; color: white; font-size: 12px; transition: width 0.5s ease-out; }
+        .playbook { margin-top: 40px; text-align: left; border-top: 2px solid #ecf0f1; padding-top: 20px; }
+        .playbook h2 { text-align: center; color: #2c3e50; margin-bottom: 15px; }
+        .playbook ul { margin-left: 20px; margin-bottom: 20px; }
+        .score-comparison { background: #eaf6ff; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        .score-comparison h3 { color: #2980b9; margin-bottom: 15px; }
+        .improvement { color: #27ae60; font-weight: bold; font-size: 1.1em; }
+        .no-improvement { color: #e67e22; font-weight: bold; }
+        .low-score-questions { margin-top: 30px; padding: 20px; background: #fcf8e3; border: 1px solid #f0ad4e; border-radius: 8px; }
+        .low-score-questions h2 { color: #8a6d3b; text-align: center; margin-bottom: 15px; }
+        .low-score-questions ul { list-style-type: none; padding: 0; margin-top: 10px; }
+        .low-score-questions li { margin-bottom: 8px; padding: 5px 0; border-bottom: 1px dotted #ccc; }
+        .actions { margin-top: 30px; text-align: center; }
+        .actions .btn-primary, .low-score-questions .btn-primary { font-size: 1.1em; padding: 12px 25px; }
     </style>
 </head>
 <body>
@@ -58,84 +32,88 @@
             <h1>Resultados del Cuestionario</h1>
         </header>
 
-        <div class="results-container">
-            <h2>¡Felicidades, {{ session.nickname }}!</h2>
-            <p>Has completado el cuestionario de gestión de innovación. Aquí está tu desglose de resultados.</p>
+        <div class="content-box">
+            
+            {% if is_retake %}
+            
+            <h2>¡Felicidades! Resultados Finales</h2>
+            <div class="score-comparison">
+                <h3>Mejora de Puntaje Total</h3>
+                <p>Puntaje Inicial: <strong>{{ retake_data.initial_total | round(2) }}</strong></p>
+                <p>Puntaje Final Mejorado: <strong>{{ retake_data.retake_total | round(2) }}</strong></p>
+                {% set improvement = retake_data.retake_total - retake_data.initial_total %}
+                {% if improvement > 0 %}
+                <p class="improvement">¡Has mejorado tu puntaje en {{ improvement | round(2) }} puntos! 🎉</p>
+                {% else %}
+                <p class="no-improvement">Tu puntaje se ha mantenido o ha disminuido. ¡Sigue practicando!</p>
+                {% endif %}
+            </div>
 
             <div class="category-scores">
+                <h3>Desglose del Puntaje Final</h3>
+                {% for category, percentage in percentages.items() %}
                 <div class="category-score">
-                    <strong>Costos:</strong> 
+                    <strong>{{ category.replace('_', ' ').title() }}:</strong> {{ scores[category] | round(2) }} / {{ max_scores[category] }} ({{ (percentage * 100) | round(1) }}%)
                     <div class="category-score-bar">
-                        <div class="category-score-fill" style="width: {{ percentages.costs }}%;">{{ "%.1f"|format(percentages.costs) }}%</div>
+                        <div class="category-score-fill" style="width: {{ (percentage * 100) | round(1) }}%;"></div>
                     </div>
                 </div>
-                <div class="category-score">
-                    <strong>Satisfacción del Cliente:</strong>
-                    <div class="category-score-bar">
-                        <div class="category-score-fill" style="width: {{ percentages.customer_satisfaction }}%;">{{ "%.1f"|format(percentages.customer_satisfaction) }}%</div>
-                    </div>
-                </div>
-                <div class="category-score">
-                    <strong>Riesgos:</strong>
-                    <div class="category-score-bar">
-                        <div class="category-score-fill" style="width: {{ percentages.risks }}%;">{{ "%.1f"|format(percentages.risks) }}%</div>
-                    </div>
-                </div>
-                <div class="category-score">
-                    <strong>Sostenibilidad:</strong> 
-                    <div class="category-score-bar">
-                        <div class="category-score-fill" style="width: {{ percentages.sustainability }}%;">{{ "%.1f"|format(percentages.sustainability) }}%</div>
-                    </div>
-                </div>
-            </div>
-
-            {% if powers_used %}
-            <div class="powers-used">
-                <h4>Poderes utilizados:</h4>
-                <ul>
-                    {% for power in powers_used %}
-                    <li>{{ power }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-
-            <div class="playbook">
-                <h2>📘 Tu Playbook de Innovación general</h2>
-                <p>Basado en tus resultados, tu principal área de mejora es la <strong>{{ playbook.area_mejora }}</strong>. Aquí tienes una guía práctica para fortalecer esta área:</p>
-
-                <h3>Procesos Sugeridos</h3>
-                <ul>
-                    {% for item in playbook.procesos %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-
-                <h3>Roles Clave</h3>
-                <ul>
-                    {% for item in playbook.roles %}
-                    <li>{{ item | safe }}</li>
-                    {% endfor %}
-                </ul>
-
-                <h3>Métricas de Éxito</h3>
-                <ul>
-                    {% for item in playbook.metricas %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-
-                <h3>Herramientas Recomendadas</h3>
-                <ul>
-                    {% for item in playbook.herramientas %}
-                    <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
+                {% endfor %}
+                <hr>
+                <p><strong>Puntaje Total Final del Equipo:</strong> <strong>{{ total_score | round(2) }}</strong> / 40.0</p>
             </div>
 
             <div class="actions">
-                <a href="{{ url_for('index') }}" class="btn-primary">Volver al inicio</a>
+                <a href="{{ url_for('index') }}" class="btn-primary">Comenzar un Nuevo Quiz</a>
             </div>
+
+            {% else %}
+
+            <h2>Puntuación General</h2>
+            <p>¡Este es el resultado de tu primer intento! Revisa tu Playbook y enfócate en las 5 áreas de oportunidad para mejorar tu puntaje.</p>
+            
+            <div class="category-scores">
+                {% for category, percentage in percentages.items() %}
+                <div class="category-score">
+                    <strong>{{ category.replace('_', ' ').title() }}:</strong> {{ scores[category] | round(2) }} / {{ max_scores[category] }} ({{ (percentage * 100) | round(1) }}%)
+                    <div class="category-score-bar">
+                        <div class="category-score-fill" style="width: {{ (percentage * 100) | round(1) }}%;"></div>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr>
+                <p><strong>Puntaje Total del Equipo:</strong> <strong>{{ total_score | round(2) }}</strong> / 40.0</p>
+            </div>
+            
+            <div class="low-score-questions">
+                <h2>⚠️ Tus 5 Áreas de Mayor Oportunidad</h2>
+                <p>Estas son las 5 preguntas donde obtuviste el menor puntaje. ¡Enfócate en ellas y lee el Playbook antes de tu Retake!</p>
+                <ul>
+                    {% for q in low_score_questions %}
+                    <li><strong>Pregunta {{ q.id }}:</strong> {{ q.question_title | truncate(100, True) }}...</li>
+                    {% endfor %}
+                </ul>
+                
+                <form action="{{ url_for('start_retake') }}" method="post" style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="btn-primary">Mejorar Puntuación (5 Preguntas)</button>
+                </form>
+            </div>
+
+            <div class="playbook">
+                <h2>📘 Tu Playbook de Innovación (Área de Mejora)</h2>
+                <p>Basado en tus resultados, tu principal área de mejora es la <strong>{{ playbook.area_mejora }}</strong>. Aquí tienes una guía práctica para fortalecer esta área:</p>
+                <h3>Procesos Sugeridos</h3>
+                <ul>{% for item in playbook.procesos %}<li>{{ item }}</li>{% endfor %}</ul>
+                <h3>Roles Clave</h3>
+                <ul>{% for item in playbook.roles %}<li>{{ item | safe }}</li>{% endfor %}</ul>
+                <h3>Métricas de Éxito</h3>
+                <ul>{% for item in playbook.metricas %}<li>{{ item }}</li>{% endfor %}</ul>
+                <h3>Herramientas Recomendadas</h3>
+                <ul>{% for item in playbook.herramientas %}<li>{{ item }}</li>{% endfor %}</ul>
+            </div>
+            
+            {% endif %}
+
         </div>
     </div>
 </body>
