@@ -100,16 +100,31 @@
             </div>
 
             <div class="playbook">
-                <h2>📘 Tu Playbook de Innovación (Área de Mejora)</h2>
-                <p>Basado en tus resultados, tu principal área de mejora es la <strong>{{ playbook.area_mejora }}</strong>. Aquí tienes una guía práctica para fortalecer esta área:</p>
-                <h3>Procesos Sugeridos</h3>
-                <ul>{% for item in playbook.procesos %}<li>{{ item }}</li>{% endfor %}</ul>
-                <h3>Roles Clave</h3>
-                <ul>{% for item in playbook.roles %}<li>{{ item | safe }}</li>{% endfor %}</ul>
-                <h3>Métricas de Éxito</h3>
-                <ul>{% for item in playbook.metricas %}<li>{{ item }}</li>{% endfor %}</ul>
-                <h3>Herramientas Recomendadas</h3>
-                <ul>{% for item in playbook.herramientas %}<li>{{ item }}</li>{% endfor %}</ul>
+                <h2>📘 Tu Guía de Estudio de Innovación: {{ playbook.area_mejora }}</h2>
+                
+                <div style="background: #f8f9fa; border-left: 5px solid #007bff; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+                    <h3 style="color: #0056b3; margin-top: 0;">🎯 Principio Clave</h3>
+                    <p><em>{{ playbook.principios_clave }}</em></p>
+                </div>
+
+                <div style="background: #eaf6ff; padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+                    <h3 style="color: #2980b9;">🧠 Cómo Aplicarlo en el Quiz (Mentalidad Ganadora)</h3>
+                    {{ playbook.mentalidad_ganadora | safe }}
+                </div>
+
+                <h3>⚙️ Procesos y Marcos de Trabajo Detallados</h3>
+                <ul>
+                    {% for item in playbook.procesos %}
+                    <li>{{ item | safe }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>📈 Métricas Clave para Medir el Éxito</h3>
+                <ul>
+                    {% for item in playbook.metricas %}
+                    <li>{{ item | safe }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             
             {% endif %}

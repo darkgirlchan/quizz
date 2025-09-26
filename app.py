@@ -120,112 +120,106 @@ questions = [
 questions_by_id = {q['id']: q for q in questions}
 
 # Playbook de Innovación
+# Reemplaza tu función generate_playbook() existente con esta versión extendida y específica
+
 def generate_playbook(scores):
+    """
+    Genera un playbook de mejora extendido y específico, diseñado como una guía de estudio
+    para que los usuarios puedan mejorar sus resultados basándose únicamente en este contenido.
+    """
     areas = {
-        "costs": scores["costs"],
-        "customer_satisfaction": scores["customer_satisfaction"],
-        "risks": scores["risks"],
-        "sustainability": scores["sustainability"]
+        "costs": scores.get("costs", 0),
+        "customer_satisfaction": scores.get("customer_satisfaction", 0),
+        "risks": scores.get("risks", 0),
+        "sustainability": scores.get("sustainability", 0)
     }
-    
-    mejoras_sugeridas = {
+
+    playbooks = {
         "costs": {
             "area_mejora": "Gestión de Costos y Eficiencia",
+            "principios_clave": "La innovación exitosa no se trata de gastar menos, sino de gastar de manera más inteligente. El objetivo es reducir el 'costo del error', validando ideas con la menor inversión posible antes de escalarlas.",
+            "mentalidad_ganadora": """
+                <p>En el quiz, las preguntas de costos a menudo presentan un dilema entre un camino 'seguro' y costoso contra uno 'experimental' y más barato. Para ganar, debes cambiar tu mentalidad de 'evitar gastos' a 'invertir en aprendizaje'.</p>
+                <ul>
+                    <li>🚩 <strong>Respuestas a evitar:</strong> Aquellas que proponen seguir un plan rígido y costoso solo porque ya fue aprobado, o las que desestiman ideas nuevas por miedo a una pequeña desviación del presupuesto. También desconfía de las que sugieren esperar meses para una revisión formal, ya que el tiempo es un costo oculto muy alto.</li>
+                    <li>✅ <strong>Respuestas a elegir:</strong> Busca siempre la opción que te permita aprender lo máximo con el mínimo riesgo financiero. Las palabras clave son <strong>'prototipo de baja fidelidad'</strong>, <strong>'prueba piloto'</strong>, <strong>'experimento rápido'</strong>, o <strong>'producto mínimo viable (MVP)'</strong>. La respuesta correcta casi siempre involucra una acción pequeña e inmediata para validar una idea antes de comprometer al equipo completo o un gran presupuesto.</li>
+                </ul>
+            """,
             "procesos": [
-                "Implementar un proceso de validación rápida de ideas, utilizando prototipos de baja fidelidad y pruebas de concepto para minimizar la inversión inicial.",
-                "Adoptar metodologías ágiles (Scrum, Kanban) para reducir el desperdicio y optimizar el uso de recursos.",
-                "Realizar análisis de retorno de inversión (ROI) en las etapas tempranas del proyecto para priorizar las iniciativas más rentables."
-            ],
-            "roles": [
-                "Un <strong>Gerente de Producto o Project Manager</strong> que priorice funcionalidades y gestione el presupuesto eficientemente.",
-                "Un <strong>Analista de Negocios</strong> que evalúe la viabilidad financiera de las ideas.",
-                "Un <strong>Ingeniero de Software</strong> que se enfoque en la arquitectura del producto para optimizar la eficiencia y los recursos."
+                "<strong>Prototipado Rápido y Test de Concepto:</strong> Es el arte de crear versiones simplificadas de una idea para probar suposiciones clave. No se trata de construir el producto final, sino de responder preguntas. ¿Entienden los usuarios la propuesta de valor? ¿Resolvería esto un problema real para ellos? Un prototipo puede ser desde un dibujo en una servilleta hasta una serie de pantallas interactivas (sin código funcional).",
+                "<strong>Metodología Lean (Crear-Medir-Aprender):</strong> Este ciclo es el motor de la innovación eficiente. En lugar de pasar meses construyendo algo en secreto, se lanza una versión mínima (MVP) a un grupo pequeño de usuarios. Se miden sus interacciones y se aprende de los datos para decidir si perseverar con la idea, modificarla (pivotar) o abandonarla. Esto evita construir productos que nadie quiere.",
+                "<strong>Presupuestos Flexibles para Innovación:</strong> En lugar de asignar un gran presupuesto anual a un solo proyecto, se asignan fondos más pequeños a múltiples experimentos. Los proyectos que demuestran tracción y aprendizaje reciben más fondos, mientras que los que no, se detienen. Es un modelo de inversión similar al de los 'venture capital'."
             ],
             "metricas": [
-                "ROI (Retorno sobre la Inversión) de proyectos de innovación.",
-                "Costo de la 'falla' o del prototipo.",
-                "Tiempo del 'ciclo de innovación' (desde la ideación hasta el lanzamiento)."
-            ],
-            "herramientas": [
-                "Herramientas de gestión de proyectos como Jira o Trello.",
-                "Análisis de costos y hojas de cálculo.",
-                "Herramientas de 'Business Model Canvas' para estructurar y validar ideas de negocio."
+                "<strong>Costo por Aprendizaje (Cost per Learning):</strong> En lugar de medir solo el ROI, enfócate en cuánto te costó validar o invalidar una hipótesis crucial. Un experimento de $1,000 que te evita gastar $100,000 en un producto fallido tiene un ROI altísimo.",
+                "<strong>Tiempo de Ciclo (Cycle Time):</strong> Mide el tiempo total desde que una idea nace hasta que se obtienen datos reales de su primer experimento en el mercado. Reducir este tiempo es clave para acelerar el aprendizaje y superar a la competencia."
             ]
         },
         "customer_satisfaction": {
-            "area_mejora": "Enfoque en el Cliente y la Satisfacción",
+            "area_mejora": "Enfoque en el Cliente (Customer Centricity)",
+            "principios_clave": "Las empresas más innovadoras no adivinan lo que quieren sus clientes; lo descubren junto a ellos. La satisfacción del cliente en un contexto de innovación proviene de resolver sus problemas reales y profundos, no solo de cumplir con una lista de requisitos.",
+            "mentalidad_ganadora": """
+                <p>En el quiz, cualquier pregunta que involucre a un cliente es una prueba de empatía. Debes resistir la tentación de actuar basándote en tus propias suposiciones o en la comodidad de tus procesos internos.</p>
+                <ul>
+                    <li>🚩 <strong>Respuestas a evitar:</strong> Aquellas en las que le pides al cliente que haga todo el trabajo (ej. 'llena este documento de 20 páginas'), o en las que tu equipo trabaja aislado asumiendo que ya sabe la respuesta. Copiar a un competidor sin entender por qué su solución funciona para sus clientes también es una trampa.</li>
+                    <li>✅ <strong>Respuestas a elegir:</strong> La opción ganadora casi siempre incluye un verbo de acción relacionado con el cliente: <strong>'entrevistar'</strong>, <strong>'observar'</strong>, <strong>'co-crear'</strong>, <strong>'realizar pruebas de usabilidad'</strong>, <strong>'crear un prototipo para validar con ellos'</strong>. Busca la respuesta que te acerque más al cliente y a su contexto real.</li>
+                </ul>
+            """,
             "procesos": [
-                "Adoptar un enfoque de 'Design Thinking' para entender profundamente las necesidades del usuario y generar soluciones centradas en él.",
-                "Crear un 'Customer Journey Map' para identificar los puntos de dolor y las oportunidades de innovación a lo largo de la experiencia del cliente.",
-                "Implementar 'bucles de retroalimentación' (feedback loops) para recolectar opiniones de los usuarios de manera continua y rápida, utilizando encuestas y entrevistas."
-            ],
-            "roles": [
-                "Un <strong>Investigador de UX</strong> (Experiencia de Usuario) que identifique las necesidades de los usuarios y las comunique al equipo de forma efectiva.",
-                "Un <strong>Estratega de Contenido</strong> que se asegure de que las soluciones sean fáciles de entender.",
-                "Un <strong>Gerente de Producto</strong> que priorice las funcionalidades que impactarán directamente la experiencia del cliente."
+                "<strong>Design Thinking:</strong> Es un marco de trabajo que pone al ser humano en el centro. Comienza con una fase de 'Empatía' (observar y entrevistar a los usuarios), seguida de 'Definición' (identificar el problema real), 'Ideación' (generar muchas soluciones posibles), 'Prototipado' (construir versiones de prueba) y 'Testeo' (validar con usuarios).",
+                "<strong>Mapa del Viaje del Cliente (Customer Journey Map):</strong> Es una visualización de toda la experiencia de un cliente con tu servicio o producto, desde que descubre que tiene una necesidad hasta el soporte post-venta. Este mapa revela 'puntos de dolor' (frustraciones) y oportunidades de innovación que de otra manera serían invisibles.",
+                "<strong>Desarrollo Impulsado por Hipótesis (Hypothesis-Driven Development):</strong> En lugar de construir funcionalidades, el equipo formula hipótesis: 'Creemos que si construimos [esta funcionalidad], los [usuarios] lograrán [este resultado], y lo sabremos midiendo [esta métrica]'. Esto obliga al equipo a pensar en el impacto real para el cliente."
             ],
             "metricas": [
-                "NPS (Net Promoter Score) para medir la lealtad del cliente.",
-                "CSAT (Customer Satisfaction Score) para medir la satisfacción del cliente.",
-                "Número de usuarios que usan una nueva funcionalidad."
-            ],
-            "herramientas": [
-                "Herramientas de encuestas como Typeform o SurveyMonkey.",
-                "Mapas de empatía para visualizar las necesidades de los usuarios.",
-                "Herramientas de prototipado como Figma o Sketch."
+                "<strong>Net Promoter Score (NPS):</strong> Mide la lealtad preguntando: '¿Qué tan probable es que recomiendes nuestro producto a un amigo?'. Los promotores son una fuente de crecimiento orgánico.",
+                "<strong>Tareas Críticas Completadas (Critical Task Completion):</strong> En pruebas de usabilidad, mide el porcentaje de usuarios que pueden completar con éxito las tareas más importantes para las que fue diseñado tu producto."
             ]
         },
         "risks": {
             "area_mejora": "Gestión de Riesgos y Experimentación",
+            "principios_clave": "La innovación y el riesgo son inseparables. El objetivo no es eliminar el riesgo, sino reducir la incertidumbre. Las organizaciones innovadoras crean un entorno seguro para tomar riesgos calculados y aprender de los fracasos.",
+            "mentalidad_ganadora": """
+                <p>Las preguntas sobre riesgo te pondrán a prueba para ver si prefieres la seguridad de lo conocido o la incertidumbre del crecimiento. La clave es no ser imprudente, sino ser un científico.</p>
+                <ul>
+                    <li>🚩 <strong>Respuestas a evitar:</strong> Aquellas que representan los extremos: el miedo paralizante ('no hacer nada', 'despedir al que falla') o la imprudencia total ('lanzar sin investigar', 'apostar todo a una idea no validada').</li>
+                    <li>✅ <strong>Respuestas a elegir:</strong> Busca la opción del 'experimento controlado'. La mentalidad correcta es: 'Tenemos una idea arriesgada. ¿Cuál es la forma más pequeña, rápida y barata de probar si tiene potencial?'. Las respuestas que hablan de <strong>'pruebas A/B'</strong>, <strong>'lanzamiento en un mercado limitado'</strong>, o <strong>'celebrar los aprendizajes del fracaso'</strong> son las que obtienen la puntuación más alta. Trata el fracaso como la compra de datos valiosos.</li>
+                </ul>
+            """,
             "procesos": [
-                "Adoptar una mentalidad de 'fallar rápido y fallar barato', para aprender de los errores y no perder tiempo en proyectos con poca probabilidad de éxito.",
-                "Realizar 'pruebas A/B' para validar hipótesis antes de lanzar un producto a gran escala.",
-                "Implementar un 'análisis de riesgos' en las etapas iniciales de cada proyecto para identificar y mitigar posibles problemas."
-            ],
-            "roles": [
-                "Un <strong>Ingeniero de Calidad</strong> que se enfoque en las pruebas de los productos para reducir el riesgo de fallas.",
-                "Un <strong>Gerente de Riesgos</strong> que evalúe y mitigue los riesgos asociados a los proyectos de innovación.",
-                "Un <strong>Analista de Datos</strong> que se asegure de que la toma de decisiones se base en evidencia."
+                "<strong>Cultura de Seguridad Psicológica:</strong> Es la creencia compartida por el equipo de que es seguro tomar riesgos interpersonales. Significa que nadie será castigado o humillado por admitir un error, hacer una pregunta o proponer una idea 'loca'. Sin esto, la gente no se atreverá a innovar.",
+                "<strong>Pruebas A/B:</strong> Es una técnica para comparar dos versiones de algo (una página web, un producto, un email) para ver cuál funciona mejor. Se muestra la versión A a un grupo de usuarios y la B a otro, y se miden los resultados. Esto reemplaza las opiniones ('a mí me gusta más el azul') con datos.",
+                "<strong>Portfolio de Innovación:</strong> Al igual que un inversor financiero diversifica sus acciones, una empresa debe diversificar sus 'apuestas' de innovación. Se debe tener un portafolio equilibrado de proyectos: mejoras incrementales de bajo riesgo (core business), adyacentes de riesgo medio y disruptivos de alto riesgo (transformacionales)."
             ],
             "metricas": [
-                "Porcentaje de proyectos que se completan sin mayores desviaciones de su alcance y presupuesto.",
-                "Número de errores críticos encontrados antes del lanzamiento.",
-                "Tiempo que toma identificar un riesgo clave."
-            ],
-            "herramientas": [
-                "Matrices de riesgo para evaluar el impacto y la probabilidad de cada riesgo.",
-                "Diagramas de flujo para visualizar los procesos y posibles fallos.",
-                "Herramientas de 'Business Case' para justificar las inversiones en innovación."
+                "<strong>Tasa de Experimentación:</strong> Mide el número de experimentos que el equipo es capaz de diseñar, lanzar y analizar en un período de tiempo. Una alta tasa de experimentación es un indicador líder de una alta tasa de innovación.",
+                "<strong>Velocidad de Aprendizaje:</strong> ¿Qué tan rápido puede el equipo extraer lecciones clave de los resultados de un experimento y aplicarlas en el siguiente ciclo? La velocidad es una ventaja competitiva clave."
             ]
         },
         "sustainability": {
-            "area_mejora": "Innovación Sostenible y Estratégica",
+            "area_mejora": "Innovación Estratégica y Sostenible",
+            "principios_clave": "La innovación no es un evento único, es un motor que debe funcionar constantemente. La sostenibilidad se logra cuando la innovación está integrada en la estrategia, la cultura y la estructura de la empresa, creando una ventaja competitiva a largo plazo.",
+            "mentalidad_ganadora": """
+                <p>Estas preguntas evalúan tu visión a largo plazo. Debes pensar no solo en cómo crear un producto exitoso, sino en cómo construir una 'fábrica de productos exitosos'.</p>
+                <ul>
+                    <li>🚩 <strong>Respuestas a evitar:</strong> Soluciones de 'parche' o de corto plazo. Contratar consultores para que 'nos traigan la innovación', organizar un hackathon de un día sin seguimiento, o copiar ciegamente a la competencia. Estas acciones no construyen capacidad interna.</li>
+                    <li>✅ <strong>Respuestas a elegir:</strong> Busca las opciones que representen un cambio sistémico y cultural. Las palabras clave son <strong>'crear un equipo de innovación autónomo'</strong>, <strong>'alinear los proyectos con la visión de la empresa'</strong>, <strong>'fomentar la colaboración entre departamentos'</strong>, <strong>'proteger la propiedad intelectual (patentes)'</strong>, y <strong>'comunicar el progreso regularmente'</strong>. La respuesta correcta construye un sistema para que la innovación florezca de manera continua.</li>
+                </ul>
+            """,
             "procesos": [
-                "Integrar la innovación en la estrategia general de la empresa, alineando los proyectos con los objetivos a largo plazo.",
-                "Crear un 'equipo de innovación' o 'laboratorio de innovación' que se dedique exclusivamente a explorar nuevas tecnologías y modelos de negocio.",
-                "Implementar 'círculos de innovación' o 'sesiones de ideación' donde los empleados de distintos departamentos colaboren en la generación de ideas para la empresa."
-            ],
-            "roles": [
-                "Un <strong>Estratega de Innovación</strong> que se encargue de identificar oportunidades a largo plazo para la empresa.",
-                "Un <strong>Líder de Equipo</strong> que fomente una cultura de colaboración y experimentación.",
-                "Un <strong>Analista de Tendencias</strong> que se anticipe a los cambios en el mercado."
+                "<strong>Laboratorios de Innovación / Equipos Autónomos (Squads):</strong> Para superar la burocracia de las grandes empresas, se crean pequeñas unidades de negocio independientes con su propio presupuesto, autoridad y objetivos. Estos 'laboratorios' pueden moverse a la velocidad de una startup mientras aprovechan los recursos de la empresa matriz.",
+                "<strong>Alineación Estratégica y Comunicación de la Visión:</strong> La innovación no puede ocurrir en un vacío. El liderazgo debe comunicar una visión clara y emocionante del futuro, y luego demostrar cómo cada proyecto de innovación contribuye a alcanzar esa visión. Las reuniones regulares donde se muestra el progreso son cruciales para mantener a todos alineados y motivados.",
+                "<strong>Gestión de Propiedad Intelectual (PI):</strong> Una innovación revolucionaria puede ser copiada rápidamente si no está protegida. Patentar una invención, registrar una marca o mantener secretos comerciales son herramientas estratégicas para asegurar que la empresa pueda capitalizar su inversión en I+D y mantener una ventaja competitiva duradera."
             ],
             "metricas": [
-                "Número de patentes o propiedad intelectual creada.",
-                "Porcentaje de ingresos que proviene de nuevos productos o servicios.",
-                "Tasa de retención de empleados que se sienten motivados a innovar."
-            ],
-            "herramientas": [
-                "Análisis de la industria y la competencia.",
-                "Plataformas de gestión de ideas (idea management).",
-                "Herramientas de planeación estratégica como PESTLE o FODA."
+                "<strong>Porcentaje de Ingresos de Nuevos Productos:</strong> Una métrica clásica que mide qué porcentaje de las ventas totales proviene de productos o servicios lanzados en los últimos 3-5 años. Un porcentaje saludable indica que el motor de innovación está funcionando.",
+                "<strong>Tasa de Retención de Talento Innovador:</strong> Los empleados más creativos y talentosos tienen muchas opciones. Si deciden quedarse y crecer en tu empresa, es una señal fuerte de que la cultura de innovación es real y atractiva."
             ]
         }
     }
     
     # Encontrar el área con el puntaje más bajo
     area_mejora = min(areas, key=areas.get)
-    return mejoras_sugeridas.get(area_mejora, {})
+    return playbooks.get(area_mejora, {})
 
 # Función auxiliar para inicializar la sesión del quiz
 def initialize_quiz_session(user_id, total_questions):
